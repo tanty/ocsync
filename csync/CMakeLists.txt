@@ -1,7 +1,10 @@
+project(ocsync C)
 
+# Required cmake version
+cmake_minimum_required(VERSION 2.8.5)
 
 # global needed variables
-set(APPLICATION_NAME "ocsync")
+set(APPLICATION_NAME ${PROJECT_NAME})
 
 set(APPLICATION_VERSION_MAJOR "0")
 set(APPLICATION_VERSION_MINOR "91")
@@ -12,6 +15,11 @@ set(APPLICATION_VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINO
 set(LIBRARY_VERSION "0.2.1")
 set(LIBRARY_SOVERSION "0")
 
+# where to look first for cmake modules, before ${CMAKE_ROOT}/modules/ is checked
+set(CMAKE_MODULE_PATH
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+)
+
 # add definitions
 include(DefineCMakeDefaults)
 include(DefinePlatformDefaults)
@@ -19,6 +27,10 @@ include(DefineCompilerFlags)
 include(DefineOptions.cmake)
 
 include(DefineInstallationPaths)
+
+# disallow in-source build
+include(MacroEnsureOutOfSourceBuild)
+macro_ensure_out_of_source_build("${PROJECT_NAME} requires an out of source build. Please create a separate build directory and run 'cmake /path/to/${PROJECT_NAME} [options]' there.")
 
 # add macros
 include(MacroAddPlugin)
