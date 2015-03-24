@@ -1,0 +1,3 @@
+[submodule "ocsync"]
+	path = upstream
+	url = git@github.com:owncloud/client.git
