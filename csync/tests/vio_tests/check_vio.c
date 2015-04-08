@@ -98,6 +98,38 @@ static void teardown(void **state) {
     *state = NULL;
 }
 
+static void check_csync_vio_load(void **state)
+{
+    CSYNC *csync = *state;
+    int rc;
+
+    rc = csync_vio_init(csync, "owncloud", NULL);
+    assert_int_equal(rc, 0);
+
+    csync_vio_shutdown(csync);
+}
+
+static void check_csync_vio_load_wrong_proto(void **state)
+{
+    CSYNC *csync = *state;
+    int rc;
+
+    rc = csync_vio_init(csync, "wrong", NULL);
+    assert_int_equal(rc, -1);
+
+    csync_vio_shutdown(csync);
+}
+
+static void check_csync_vio_load_bad_plugin(void **state)
+{
+    CSYNC *csync = *state;
+    int rc;
+
+    rc = csync_vio_init(csync, "bad", NULL);
+    assert_int_equal(rc, -1);
+
+    csync_vio_shutdown(csync);
+}
 
 /*
  * Test directory function

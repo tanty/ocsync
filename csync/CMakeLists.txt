@@ -57,6 +57,7 @@ if (MEM_NULL_TESTS)
 endif (MEM_NULL_TESTS)
 
 add_subdirectory(src)
+add_subdirectory(modules)
 
 if (UNIT_TESTING)
     find_package(CMocka)
